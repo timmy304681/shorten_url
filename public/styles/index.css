@@ -1,0 +1,31 @@
+body {
+  text-align: center;
+}
+
+h1 {
+  color: navy;
+}
+
+#longURLBox {
+  width: 50%;
+  display: flex;
+  border: 1px solid black;
+  border-radius: 9px;
+  flex-direction: column;
+  margin: 24px auto;
+  gap: 24px;
+  padding: 16px;
+}
+
+button {
+  width: 45%;
+  margin: 0 auto;
+}
+
+#short {
+  border: 1px solid grey;
+  border-radius: 9px;
+  width: 55%;
+  height: 24px;
+  margin: 0 auto;
+}
