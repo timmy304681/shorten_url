@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { dbWrite } = require('./mysqlconf.js')
+const { dbWrite, dbRead1, dbRead2, dbRead3 } = require('./mysqlconf.js')
 
 const { encodeBase62 } = require('../util/encodeBase62')
 
@@ -26,4 +26,28 @@ async function getShortURL (longURL) {
   return shortURL
 }
 
-module.exports = { getShortURL }
+async function getLongURLFromDb1 (id ) {
+  const [[result]] = await dbRead1.execute(
+    'SELECT long_url FROM url_info WHERE id = ?',
+    [id]
+  )
+  return result
+}
+
+async function getLongURLFromDb2 (id ) {
+  const [[result]] = await dbRead1.execute(
+    'SELECT long_url FROM url_info WHERE id = ?',
+    [id]
+  )
+  return result
+}
+
+async function getLongURLFromDb3 (id ) {
+  const [[result]] = await dbRead1.execute(
+    'SELECT long_url FROM url_info WHERE id = ?',
+    [id]
+  )
+  return result
+}
+
+module.exports = { getShortURL, getLongURLFromDb1, getLongURLFromDb2, getLongURLFromDb3 }
