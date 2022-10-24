@@ -1,3 +1,5 @@
+// require('dotenv').config({ path: '../.env' });
+// const pool = require('./mysqlcon');
 const pool = require('./mysqlconf');
 const rand = require('random-key');
 
@@ -26,8 +28,8 @@ const addShortUrl = async (longUrl) => {
       'INSERT INTO `url_info` (short_url, long_url) VALUES (?,?)',
       [shortUrl, longUrl]
     );
-    console.log(result);
     await conn.query('COMMIT');
+    return shortUrl;
   } catch (error) {
     await conn.query('ROLLBACK');
     return { error };
@@ -36,4 +38,12 @@ const addShortUrl = async (longUrl) => {
   }
 };
 
-module.exports = { addShortUrl };
+const getLongUrl = async (shortUrl) => {
+  const [result] = await pool.query(
+    `SELECT * FROM url_info WHERE short_url = ?`,
+    [shortUrl]
+  );
+  return result[0].long_url;
+};
+
+module.exports = { addShortUrl, getLongUrl };
