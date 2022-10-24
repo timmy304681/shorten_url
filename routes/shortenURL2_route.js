@@ -9,4 +9,5 @@ router.route('/:targetURL').get(wrapAsync(getShortenURL));
 
 router.route('/data/shortenURL2').post(wrapAsync(postShortenURL));
 
+
 module.exports = router;
