@@ -14,9 +14,9 @@ app.use(cors());
 
 // API routes
 app.use('/api/' + API_VERSION, [
-  require('./routes/shortenURL1_route'),
+  // require('./routes/shortenURL1_route'),
   require('./routes/shortenURL2_route'),
-  require('./routes/shortenURL3_route'),
+  // require('./routes/shortenURL3_route'),
 ]);
 
 // Error handling
@@ -26,6 +26,8 @@ app.use(function (err, req, res, next) {
 });
 
 //set port to 3000
-app.listen(SERVER_PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+module.exports = app;
