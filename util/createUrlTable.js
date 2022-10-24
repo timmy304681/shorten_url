@@ -15,3 +15,4 @@ const createTable = async () => {
 }
 
 createTable()
+
