@@ -3,7 +3,6 @@
 const pool = require('./mysqlconf');
 const rand = require('random-key');
 
-const longUrl = 'google.com';
 const addShortUrl = async (longUrl) => {
   const getRandom = rand.generate(6);
   // 組成七碼隨機 url
