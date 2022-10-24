@@ -50,3 +50,4 @@ const dbRead3 = mysql.createPool({
 })
 
 module.exports = { mysql, dbWrite, dbRead1, dbRead2, dbRead3}
+
