@@ -1,17 +1,53 @@
-require('dotenv').config({ path: '../.env' });
-const mysql = require('mysql2');
-// password in app.js
-const options = {
-  host: process.env.DB_HOST_WRITE,
-  user: process.env.DB_USERNAME_WRITE,
-  port: process.env.DATABASE_PORT,
-  password: process.env.DB_PASSWORD_WRITE,
-  database: process.env.DB_DATABASE_WRITE,
-};
+require('dotenv').config()
+const mysql = require('mysql2/promise')
+const {
+  DB_HOST_WRITE,
+  DB_USERNAME_WRITE,
+  DB_PASSWORD_WRITE,
+  DB_DATABASE_WRITE,
+  DB_HOST_READ1,
+  DB_USERNAME_READ1,
+  DB_PASSWORD_READ1,
+  DB_DATABASE_READ1,
+  DB_HOST_READ2,
+  DB_USERNAME_READ2,
+  DB_PASSWORD_READ2,
+  DB_DATABASE_READ2,
+  DB_HOST_READ3,
+  DB_USERNAME_READ3,
+  DB_PASSWORD_READ3,
+  DB_DATABASE_READ3,
+} = process.env
 
-const db = mysql.createPool(options);
+// create write connection
+const dbWrite = mysql.createPool({
+  host: DB_HOST_WRITE,
+  user: DB_USERNAME_WRITE,
+  password: DB_PASSWORD_WRITE,
+  database: DB_DATABASE_WRITE
+})
 
-// create a new promise to use async/ await function
-const pool = db.promise();
+// create read connection
+const dbRead1 = mysql.createPool({
+  host: DB_HOST_READ1,
+  user: DB_USERNAME_READ1,
+  password: DB_PASSWORD_READ1,
+  database: DB_DATABASE_READ1
+})
 
-module.exports = pool;
+const dbRead2 = mysql.createPool({
+  host: DB_HOST_READ2,
+  user: DB_USERNAME_READ2,
+  password: DB_PASSWORD_READ2,
+  database: DB_DATABASE_READ2
+})
+
+const dbRead3 = mysql.createPool({
+  host: DB_HOST_READ3,
+  user: DB_USERNAME_READ3,
+  password: DB_PASSWORD_READ3,
+  database: DB_DATABASE_READ3
+})
+
+module.exports = { mysql, dbWrite, dbRead1, dbRead2, dbRead3}
+
