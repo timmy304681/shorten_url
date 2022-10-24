@@ -1,10 +1,9 @@
 const router = require('express').Router();
+const { wrapAsync } = require('../util/util');
 const { getURL, postURL } = require('../controllers/shortenURL1_controller');
 
-router.get('/v1/:shortenURL', getURL);
+router.route('/:shortenURL').get(wrapAsync(getURL));
 
-router.post('/data/shortenURL1', postURL);
-
+router.route('/data/shortenURL1').post(wrapAsync(postURL));
 
 module.exports = router;
-
