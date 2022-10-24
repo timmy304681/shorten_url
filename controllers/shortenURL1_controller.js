@@ -8,11 +8,9 @@ const {
 } = require('../models/shortenURL1_model');
 
 const getURL = async (req, res) => {
-  const shortURL = req.params.shortURL;
-
+  const shortURL = req.params.shortenURL;
   // get first word
-  const shortURLFirst = str.split(shortURL)[0];
-
+  const shortURLFirst = shortURL.split('')[0];
   let longURL;
   switch (shortURLFirst) {
     case 'B':
@@ -29,7 +27,6 @@ const getURL = async (req, res) => {
 const postURL = async (req, res) => {
   const longURL = req.body.longURL;
 
-  // 預計拿到"a123456"
   const shortURLBase62 = await addShortUrl(longURL);
   const shortURL = `http://${EC2_ENDPOINT}/api/v1/${shortURLBase62}`;
   res.status(200).json({ shortURL });
