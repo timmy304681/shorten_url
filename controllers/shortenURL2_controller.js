@@ -7,7 +7,7 @@ const {
   readReplicaFromM3,
 } = require('../models/shortenURL2_model');
 const util = require('../util/util');
-const { EC2_ENDPOIN } = process.env;
+const { EC2_ENDPOINT } = process.env;
 
 const getShortenURL = async (req, res) => {
   const targetURL = req.params.targetURL;
@@ -15,13 +15,13 @@ const getShortenURL = async (req, res) => {
   let longURL;
   let longURLId;
   switch (shortURLEncode) {
-    case 'b':
+    case 'B':
       longURLId = await deCodeShortURL(shortURLEncode);
       longURL = await readReplicaFromM1(longURLId);
-    case 'c':
+    case 'C':
       longURLId = await deCodeShortURL(shortURLEncode);
       longURL = await readReplicaFromM2(longURLId);
-    case 'd':
+    case 'D':
       longURLId = await deCodeShortURL(shortURLEncode);
       longURL = await readReplicaFromM3(longURLId);
   }
