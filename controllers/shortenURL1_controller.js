@@ -1,6 +1,11 @@
 require('dotenv').config();
 const { EC2_ENDPOINT } = process.env;
-const { addShortUrl, getLongUrl } = require('../models/shortenURL1_model');
+const {
+  addShortUrl,
+  getLongUrl1,
+  getLongUrl2,
+  getLongUrl3,
+} = require('../models/shortenURL1_model');
 
 const getURL = async (req, res) => {
   const shortURL = req.params.shortURL;
@@ -10,12 +15,12 @@ const getURL = async (req, res) => {
 
   let longURL;
   switch (shortURLFirst) {
-    case 'b':
-      longURL = await getLongUrl(shortURL);
-    case 'c':
-      longURL = await getLongUrl(shortURL);
-    case 'd':
-      longURL = await getLongUrl(shortURL);
+    case 'B':
+      longURL = await getLongUrl1(shortURL);
+    case 'C':
+      longURL = await getLongUrl2(shortURL);
+    case 'D':
+      longURL = await getLongUrl3(shortURL);
   }
 
   res.redirect(301, longURL);
