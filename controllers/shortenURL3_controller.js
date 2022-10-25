@@ -1,10 +1,10 @@
 const { EC2_ENDPOINT } = process.env;
 require('dotenv').config();
 const {
-  getShortURL,
-  getLongURL1,
-  getLongURL2,
-  getLongURL3,
+  getShortUrl,
+  getLongUrl1,
+  getLongUrl2,
+  getLongUrl3,
 } = require('../models/shortenURL3_model');
 const { checkURLFormat } = require('../util/util');
 
@@ -32,8 +32,8 @@ const postURL = async (req, res) => {
     res.status(403).json({ error: 'Please check the input' });
   }
 
-  const shortURLBase62 = await getShortURL(longURL);
-  const shortURL = `http://${EC2_ENDPOINT}/api/v2/${shortURLBase62}`;
+  const shortURLBase62 = await getShortUrl(longURL);
+  const shortURL = `http://${EC2_ENDPOINT}/api/v2/${shortURLBase62['long_url']}`;
   res.status(200).json({ shortURL });
 };
 
