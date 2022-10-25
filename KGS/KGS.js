@@ -5,7 +5,9 @@ const redis = require("redis");
 const client = require("../util/cache")
 
 // 一千萬筆資料
+
 const max = 10000000
+
 const len = 6
 
 let charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
