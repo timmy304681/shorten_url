@@ -19,12 +19,15 @@ const getShortenURL = async (req, res) => {
     case 'B':
       longURLId = await decodeBase62(shortURLEncode);
       longURL = await getLongURLFromDb1(longURLId);
+      break;
     case 'C':
       longURLId = await decodeBase62(shortURLEncode);
       longURL = await getLongURLFromDb2(longURLId);
+      break;
     case 'D':
       longURLId = await decodeBase62(shortURLEncode);
       longURL = await getLongURLFromDb3(longURLId);
+      break;
   }
 
   res.redirect(301, longURL['long_url']);
