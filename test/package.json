@@ -1,0 +1,7 @@
+{
+  "name": "functions",
+  "scripts": {
+    "pretest": "webpack",
+    "test": "k6 run ./dist/test.index.js"
+  }
+}
