@@ -16,3 +16,14 @@ process.exit()
 }
 
 insertData()
+
+// insert fake data in redis
+const addKeyValue = async () =>{
+  let values = []
+  for (let i = 0; i < 20; i++){
+    values.push(`value${i}`)
+  }
+  await redisClient.sAdd('key', values)
+  console.log('Data inserted');
+}
+addKeyValue()
