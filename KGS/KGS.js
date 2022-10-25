@@ -15,7 +15,7 @@ client.on('connect', () => console.log('Redis Connected'));
 module.exports = client;
 
 // 一千萬筆資料
-const max = 100
+const max = 100000
 const len = 6
 
 let charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
