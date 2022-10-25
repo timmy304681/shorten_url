@@ -16,14 +16,10 @@ app.use(cors());
 app.use('/', express.static(__dirname + '/public'));
 
 // API routes
-switch (API_VERSION) {
-  case 'v1':
-    app.use('/api/' + API_VERSION, require('./routes/shortenURL1_route'));
-  case 'v2':
-    app.use('/api/' + API_VERSION, require('./routes/shortenURL2_route'));
-  case 'v3':
-    app.use('/api/' + API_VERSION, require('./routes/shortenURL3_route'));
-}
+
+app.use('/api/v1', require('./routes/shortenURL1_route'));
+app.use('/api/v2', require('./routes/shortenURL2_route'));
+app.use('/api/v3', require('./routes/shortenURL3_route'));
 
 // Error handling
 app.use(function (err, req, res, next) {

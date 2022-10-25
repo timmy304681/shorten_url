@@ -1,31 +1,32 @@
 require('dotenv').config();
 const {
   getShortURL,
-  deCodeShortURL,
-  readReplicaFromM1,
-  readReplicaFromM2,
-  readReplicaFromM3,
+  getLongURLFromDb1,
+  getLongURLFromDb2,
+  getLongURLFromDb3,
 } = require('../models/shortenURL2_model');
-const util = require('../util/util');
+const { decodeBase62 } = require('../util/decodeBase62');
 const { EC2_ENDPOINT } = process.env;
 
 const getShortenURL = async (req, res) => {
   const targetURL = req.params.targetURL;
-  shortURLEncode = targetURL.substring(1);
+  const shortURLFirst = targetURL.split('')[0];
+  const shortURLEncode = targetURL.substring(1);
   let longURL;
   let longURLId;
-  switch (shortURLEncode) {
+  switch (shortURLFirst) {
     case 'B':
-      longURLId = await deCodeShortURL(shortURLEncode);
-      longURL = await readReplicaFromM1(longURLId);
+      longURLId = await decodeBase62(shortURLEncode);
+      longURL = await getLongURLFromDb1(longURLId);
     case 'C':
-      longURLId = await deCodeShortURL(shortURLEncode);
-      longURL = await readReplicaFromM2(longURLId);
+      longURLId = await decodeBase62(shortURLEncode);
+      longURL = await getLongURLFromDb2(longURLId);
     case 'D':
-      longURLId = await deCodeShortURL(shortURLEncode);
-      longURL = await readReplicaFromM3(longURLId);
+      longURLId = await decodeBase62(shortURLEncode);
+      longURL = await getLongURLFromDb3(longURLId);
   }
-  res.redirect(301, longURL);
+
+  res.redirect(301, longURL['long_url']);
 };
 
 const postShortenURL = async (req, res) => {
