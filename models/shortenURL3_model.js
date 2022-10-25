@@ -1,38 +1,37 @@
 require('dotenv').config()
 const {dbWrite, dbRead1, dbRead2, dbRead3} = require('../models/mysqlconf')
-// redis 的來源無{}故毋須用解構寫法
 const redisClient = require('../util/cache')
+const KGS = require('../KGS/KGS')
 
-// TODO: long_url 改為GET from api
-const long_url = 'https://flaviocopes.com/how-to-use-redis-nodejs/'
+const obj = {'B':'1', 'C':'2', 'D':'3'}
+const EC2_NUM = process.env.EC2_NUM
+const set = 'set'+obj[EC2_NUM]
 
-// TODO: 改為宣揚設定的redis key，判斷從哪個set取key?
-const getKGSKey = async () => {
+const getShortUrl = async (shortUrl) => {
   try{
-    const KGSKey = await redisClient.sPop('key')
+    const shortUrl = await redisClient.sPop(set)
     console.log('get key from cache.');
-    await dbWrite.execute('INSERT INTO `url_info` (short_url, long_url) VALUES (?, ?)', [KGSKey, long_url])
+    const [result] = await dbWrite.execute('INSERT INTO `url_info` (short_url, long_url) VALUES (?, ?)', [shortUrl, longUrl])
     console.log('Data insert into DB.');
+    return result
   } catch(err){
     console.error(err)
   }
 }
 
-
-const insertData = async () => {
-  try{
-    await dbWrite.execute('INSERT INTO `url_info` (short_url, long_url) VALUES (?, ?)', [KGSKey, long_url])
-    console.log('Data insert into DB.');
-  } catch(err){
-    console.error(err)
-  }
+const getLongUrl1 = async (shortUrl) => {
+    const [[result]] = await dbRead1.execute('SELECT long_url FROM `url_info` WHERE short_url = ?', [shortUrl])
+    return result 
 }
 
-const readData1 = async () => {
-  const [result] = await dbRead1.execute('SELECT * FROM `url_info` WHERE id = ?', [])
+const getLongUrl2 = async (shortUrl) => {
+  const [[result]] = await dbRead2.execute('SELECT long_url FROM `url_info` WHERE short_url = ?', [shortUrl])
+  return result 
 }
 
-getKGSKey()
-insertData()
+const getLongUrl3 = async (shortUrl) => {
+  const [[result]] = await dbRead3.execute('SELECT long_url FROM `url_info` WHERE short_url = ?', [shortUrl])
+  return result 
+}
 
-module.exports = {dbWrite, dbRead1, dbRead2, dbRead3}
+module.exports = {getShortUrl, getLongUrl1, getLongUrl2, getLongUrl3}
