@@ -1,3 +1,8 @@
+import http from 'k6/http';
+import { check, sleep } from 'k6';
+const urls = require("./longUrl.json");
+
+// const arrUrls = urls.map(url => url['Root Domain'])
 
 export const options = {
 	// discardResponseBodies: true,
