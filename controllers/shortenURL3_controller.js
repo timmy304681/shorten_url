@@ -17,10 +17,13 @@ const getURL = async (req, res) => {
   switch (shortURLFirst) {
     case 'B':
       longURL = await getLongUrl1(shortURL);
+      break;
     case 'C':
       longURL = await getLongUrl2(shortURL);
+      break;
     case 'D':
       longURL = await getLongUrl3(shortURL);
+      break;
   }
 
   res.redirect(301, longURL['long_url']);
