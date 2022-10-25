@@ -23,7 +23,7 @@ const getURL = async (req, res) => {
       longURL = await getLongUrl3(shortURL);
   }
 
-  res.redirect(301, longURL);
+  res.redirect(301, longURL['long_url']);
 };
 
 const postURL = async (req, res) => {
@@ -33,7 +33,7 @@ const postURL = async (req, res) => {
   }
 
   const shortURLBase62 = await getShortUrl(longURL);
-  const shortURL = `http://${EC2_ENDPOINT}/api/v2/${shortURLBase62['long_url']}`;
+  const shortURL = `http://${EC2_ENDPOINT}/api/v3/${shortURLBase62}`;
   res.status(200).json({ shortURL });
 };
 
