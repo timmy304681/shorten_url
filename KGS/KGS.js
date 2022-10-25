@@ -15,14 +15,14 @@ client.on('connect', () => console.log('Redis Connected'));
 module.exports = client;
 
 // 一千萬筆資料
-const max = 10000000
+const max = 100
 const len = 6
 
 let charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 charset = base62.indexCharset(charset);
 
 
-const input = async (starter) => {
+const input = async (starter, mySet) => {
 	try {
 
 		for (let i = 0; i < max; i += 1) {
@@ -35,16 +35,16 @@ const input = async (starter) => {
 				complementZero += '0'
 			}
 			encoded = starter + complementZero + encoded
-			await client.sAdd('myset', `${encoded}`);
+			await client.sAdd(mySet, `${encoded}`);
 		}
 	} catch (err) {
 		console.log(err);
 	}
 }
 
-input('A')
-input('B')
-input('C')
+input('A', 'set1')
+input('B', 'set2')
+input('C', 'set3')
 //插入資料到redis "myset1, myset2, myset3"
 
 
