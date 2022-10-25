@@ -1,18 +1,15 @@
 require('dotenv').config()
 const {dbWrite, dbRead1, dbRead2, dbRead3} = require('../models/mysqlconf')
 const redisClient = require('../util/cache')
-const KGS = require('../KGS/KGS')
 
 const obj = {'B':'1', 'C':'2', 'D':'3'}
 const EC2_NUM = process.env.EC2_NUM
 const set = 'set'+obj[EC2_NUM]
 
-const getShortUrl = async (shortUrl) => {
+const getShortUrl = async (longUrl) => {
   try{
     const shortUrl = await redisClient.sPop(set)
-    console.log('get key from cache.');
     const [result] = await dbWrite.execute('INSERT INTO `url_info` (short_url, long_url) VALUES (?, ?)', [shortUrl, longUrl])
-    console.log('Data insert into DB.');
     return result
   } catch(err){
     console.error(err)

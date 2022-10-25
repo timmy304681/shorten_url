@@ -2,22 +2,10 @@
 const base62 = require("base62/lib/custom");
 // 建立Redis連線
 const redis = require("redis");
-const client = require('../util/cache')
-// const hostname = 'localhost';
-// const password = '0000';
-// const port = '6379';
-// const name = 'default';
-// const client = redis.createClient({
-// 	url: `redis://${name}:${password}@${hostname}:${port}/0`,
-// });
-// client.connect();
-// client.on('error', (err) => console.log('Redis Client Error', err));
-// client.on('connect', () => console.log('Redis Connected'));
-// module.exports = client;
+const client = require("../util/cache")
 
 // 一千萬筆資料
-
-const max = 100
+const max = 10000000
 const len = 6
 
 let charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
