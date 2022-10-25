@@ -9,6 +9,7 @@ const {
 
 const getURL = async (req, res) => {
   const shortURL = req.params.shortenURL;
+  console.log(shortURL);
   // get first word
   const shortURLFirst = shortURL.split('')[0];
   let longURL;
