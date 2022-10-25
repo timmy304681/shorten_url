@@ -6,6 +6,7 @@ const {
   getLongURLFromDb3,
 } = require('../models/shortenURL2_model');
 const { decodeBase62 } = require('../util/decodeBase62');
+const { checkURLFormat } = require('../util/util');
 const { EC2_ENDPOINT } = process.env;
 
 const getShortenURL = async (req, res) => {
@@ -31,6 +32,11 @@ const getShortenURL = async (req, res) => {
 
 const postShortenURL = async (req, res) => {
   const longURL = req.body.longURL;
+
+  if (checkURLFormat(longURL) != true) {
+    res.status(403).json({ error: 'Please check the input' });
+  }
+
   const shortURL = await getShortURL(longURL);
   res.status(200).json({
     shortURL: `http://${EC2_ENDPOINT}/api/v2/${shortURL}`,
