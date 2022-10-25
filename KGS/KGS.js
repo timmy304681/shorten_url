@@ -42,7 +42,9 @@ const input = async (starter) => {
 	}
 }
 
-input('a')
+input('A')
+input('B')
+input('C')
 //插入資料到redis "myset1, myset2, myset3"
 
 
