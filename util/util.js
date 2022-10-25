@@ -1,3 +1,5 @@
+const validator = require('validator');
+
 // reference: https://thecodebarbarian.com/80-20-guide-to-express-error-handling
 const wrapAsync = (fn) => {
   return function (req, res, next) {
@@ -7,4 +9,8 @@ const wrapAsync = (fn) => {
   };
 };
 
-module.exports = { wrapAsync };
+const checkURLFormat = function (inputURL) {
+  return validator.isURL(inputURL);
+};
+
+module.exports = { checkURLFormat, wrapAsync };
